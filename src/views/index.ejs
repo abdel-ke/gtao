@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Character</title>
+    <!-- <link rel="stylesheet" type="text/css" href="../public/css/style.css"> -->
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body>
+    <div class="component">
+        <table id="table">
+            <tr class="header">
+                <th>Start</th>
+                <th>End</th>
+                <th>current</th>
+                <th>Total</th>
+            </tr>
+            <% data.map((item)=> { %>
+                <tr class="content">
+                    <td class="items"><%= item.start.toLocaleString('en-US') %>$</td>
+                    <td class="items"><%= item.end.toLocaleString('en-US') %>$</td>
+                    <td class="items"><%= item.current.toLocaleString('en-US') %>$</td>
+                    <td class="items"><%= item.total.toLocaleString('en-US') %>$</td>
+                </tr>
+                <% }) %>
+                    <form action="/" method="POST">
+                        <tr>
+                            <td><input type="text" placeholder="Start" id="start" name="start"></td>
+                            <td><input type="text" placeholder="End" id="end" name="end"></td>
+                            <td><input type="text" placeholder="Current" id="current" name="current"></td>
+                            <td><input type="text" placeholder="Total" id="total" name="total"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" rowspan="2"><button>ADD</button></td>
+                        </tr>
+                    </form>
+        </table>
+    </div>
+</body>
+
+</html>

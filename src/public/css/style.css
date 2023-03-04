@@ -1,0 +1,47 @@
+button {
+    align-items: center;
+    border: none;
+    background-color: aquamarine;
+    border-radius: 2px;
+    width: 20%;
+}
+
+::placeholder {
+    text-align: center;
+}
+
+table,
+th,
+td {
+    border: 1px solid rgb(188, 231, 248);
+    border-collapse: collapse;
+}
+
+td,
+th {
+    text-align: center;
+    background-color: #96D4D4;
+}
+
+table {
+    margin-bottom: 20px;
+    width: 75%;
+}
+
+.items {
+    font-weight: bold;
+}
+
+.component {
+    margin: auto;
+    width: 35%;
+}
+
+.header {
+    color: rgb(0, 0, 0);
+}
+
+.content {
+    /* color: greenyellow; */
+    color: white;
+}
