@@ -1,44 +1,42 @@
 const express = require('express');
-const fs = require('fs');
+// const fs = require('fs');
 
 const sqlite = require('./help/database.js');
 
 const app = express();
-var bodyParser = require("body-parser");
+// var bodyParser = require("body-parser");
+const { log } = require('console');
 
 app.set('view-engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'));
 
-let data;
+// let data;
 
-app.get('/', (req, res) => {
-    // const jsonData = fs.readFileSync('config/data.json');
-    const data2 = sqlite.getData();
-    console.log("data2: ", data2);
-    // data = JSON.parse(jsonData);
-    // res.render('index.ejs', { data2 });
+app.get('/', async (req, res) => {
+    const data = await sqlite.getData();
+    res.render('index.ejs', { data });
 })
 
-app.post('/', (req, res) => {
-    if (!req.body.start || !req.body.end || !req.body.current || !req.body.total)
-        console.log("chi haja khawya, something is empty");
+app.post('/', async (req, res) => {
+    if (!req.body.start || !req.body.end) {
+        log("chi haja khawya, something is empty");
+        res.redirect('/');
+    }
     else {
-        console.log("data: ", data);
-        if (data) {
-            data.push({
-                start: parseInt(req.body.start),
-                end: parseInt(req.body.end),
-                current: parseInt(req.body.current),
-                total: parseInt(req.body.total),
-            });
-            fs.writeFileSync('config/data.json', JSON.stringify(data));
+        let lastOne = await sqlite.getLastOne();
+        let current = parseInt(req.body.end) - parseInt(req.body.start);
+        if (!lastOne)
+            sqlite.add(req.body.start, req.body.end, current, req.body.current);
+        else {
+            !lastOne.total ? lastOne.total = 0 : lastOne.total;
+            const total = parseInt(lastOne.total) + parseInt(current);
+            sqlite.add(req.body.start, req.body.end, current, total);
         }
-        else
-            console.log("data was empty!!");
+        res.redirect('/');
     }
 })
 
 app.listen(3000, () => {
-    console.log("server listening");
+    log("server listening");
 });

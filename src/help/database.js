@@ -8,6 +8,12 @@ const db = new sqlite.Database('db/gtao.db', sqlite.OPEN_READWRITE | sqlite.OPEN
 
 db.serialize(() => {
     // create table
+    // let sql = `CREATE TABLE IF NOT EXISTS Girl(
+    //     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    //     start INTEGER,
+    //     end INTEGER,'
+    //     current INTEGER,
+    //     total INTEGER)`;
     let sql = 'CREATE TABLE IF NOT EXISTS Girl(';
     sql += 'id INTEGER PRIMARY KEY AUTOINCREMENT,';
     sql += 'start INTEGER,';
@@ -16,46 +22,52 @@ db.serialize(() => {
     sql += 'total INTEGER)';
     db.run(sql, err => {
         if (err) throw err;
-        console.log('table created successfuly');
+        else console.log('table created successfully');
     });
 });
 
-const update = (start, end, current, total) => {
-    let sql = 'insert into Girl(start, end, current, total) values(12000, 20000, 30000, 40000)'
-    db.run(sql, err => {
-        if (err) throw err;
-        console.log("data updated");
-    });
-};
+const deleteRow = () => {
+    const query = 'SELECT * FROM table Girl ORDER BY column DESC LIMIT 1;'
+
+}
 
 const getData = () => {
     let sql = 'select * from Girl';
-    db.all(sql, (err, rows) => {
-        if (err) throw err;
-        rows.forEach(row => {
-            console.log(row);
-        });
-        return rows;
+    return new Promise(resolve => {
+        db.all(sql, (err, rows) => {
+            if (err) throw err;
+            resolve(rows);
+        })
     })
 }
 
+const getLastOne = () => {
+    const query = 'SELECT * FROM Girl ORDER BY id DESC LIMIT 1;'
+    return new Promise(resolve => {
+        db.get(query, (err, row) => {
+            if (err) throw err;
+            resolve(row);
+        });
+    })
+}
+
+// getData();
 const add = (start, end, current, total) => {
-    // Add a task to the todo list.
-    db.run("INSERT INTO todo Girl (?, ?, ?, ?)", [start, end, current, total], (err) => {
+    db.run("INSERT INTO Girl(start, end, current, total) values(?, ?, ?, ?)", [start, end, current, total], (err) => {
         if (err) throw err;
-        console.log("insertion was successfully");
+        else console.log("values added successfully");
     });
 }
 
 // Always close the connection with database
-db.close((err) => {
-    if (err)
-        console.error(err.message);
-    console.log('Close the database connection.');
-});
+// db.close((err) => {
+//     if (err)
+//         console.error(err.message);
+//     console.log('Close the database connection.');
+// });
 
 module.exports = {
     getData,
-    update,
-    add
+    add,
+    getLastOne
 }
