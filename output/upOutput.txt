@@ -1,0 +1,19 @@
+Attaching to node-app-1
+node-app-1  | 
+node-app-1  | > node@1.0.0 start /usr/src/app
+node-app-1  | > nodemon app.js
+node-app-1  | 
+node-app-1  | sh: 1: nodemon: not found
+node-app-1  | npm ERR! code ELIFECYCLE
+node-app-1  | npm ERR! syscall spawn
+node-app-1  | npm ERR! file sh
+node-app-1  | npm ERR! errno ENOENT
+node-app-1  | npm ERR! node@1.0.0 start: `nodemon app.js`
+node-app-1  | npm ERR! spawn ENOENT
+node-app-1  | npm ERR! 
+node-app-1  | npm ERR! Failed at the node@1.0.0 start script.
+node-app-1  | npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+node-app-1  | 
+node-app-1  | npm ERR! A complete log of this run can be found in:
+node-app-1  | npm ERR!     /root/.npm/_logs/2023-03-08T16_15_33_221Z-debug.log
+node-app-1 exited with code 1

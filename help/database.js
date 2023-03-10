@@ -1,19 +1,12 @@
 const sqlite = require("sqlite3").verbose();
 
-const path = '/mnt/c/Users/kemma/Desktop/gtav/charachter/node/src/db'
-const db = new sqlite.Database('db/gtao.db', sqlite.OPEN_READWRITE | sqlite.OPEN_CREATE, err => {
+const db = new sqlite.Database('./db/gtao.db', sqlite.OPEN_READWRITE | sqlite.OPEN_CREATE, err => {
     if (err) throw err;
     console.log("Connected to the data SQlite database");
 });
 
+
 db.serialize(() => {
-    // create table
-    // let sql = `CREATE TABLE IF NOT EXISTS Girl(
-    //     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    //     start INTEGER,
-    //     end INTEGER,'
-    //     current INTEGER,
-    //     total INTEGER)`;
     let sql = 'CREATE TABLE IF NOT EXISTS Girl(';
     sql += 'id INTEGER PRIMARY KEY AUTOINCREMENT,';
     sql += 'start INTEGER,';
